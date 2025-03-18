@@ -1,0 +1,31 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+
+::ng-deep {
+  $icon-names:
+    "public_on", "public_off", "publish", "kick", "friends", "games", "invites", "message", "seat", "edit",
+    "cancel_cross", "accept_check", "minimize", "maximize", "close", "chat_add", "star";
+
+  .icon {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  @each $name in $icon-names {
+    .icon-#{$name} {
+      $size: 20px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/#{$name}.svg", $size, $size, rgb(240, 185, 0));
+        width: $size;
+        height: $size;
+      }
+    }
+  }
+}

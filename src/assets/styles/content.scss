@@ -1,0 +1,203 @@
+@use "src/assets/styles/_icons.scss" as icons;
+@import "src/assets/styles/animations.scss";
+
+::ng-deep {
+  // Card
+  .card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background: #fff;
+    border-radius: 5px;
+    padding: 8px;
+    box-shadow: 0.1px 1px 4px #bbb;
+    width: 100%;
+    min-height: 400px;
+    max-height: 800px;
+    height: fit-content;
+
+    .card__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      overflow-x: hidden;
+      background: #fff;
+      border: 1px solid rgba(160, 160, 160, 0.2);
+      border-radius: 3px;
+    }
+
+    mat-tab-group {
+      .content-item {
+        gap: 16px;
+      }
+    }
+  }
+
+  // Sections
+  section,
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .section__title {
+    font-weight: 400;
+    font-size: 15px;
+    margin-top: 10px;
+  }
+
+  .section__desc {
+    font-weight: 300;
+    font-size: 13px;
+    margin: 5px 0;
+  }
+
+  .section__content {
+    padding: 8px;
+    display: flex;
+    align-items: flex-start;
+    align-content: center;
+    justify-content: space-evenly;
+    border-radius: 4px;
+    gap: 8px;
+  }
+
+  .section__content {
+    padding: 8px;
+    display: flex;
+    align-items: flex-start;
+    align-content: center;
+    justify-content: space-evenly;
+    border-radius: 4px;
+    background: #efefef;
+    gap: 8px;
+  }
+
+  .section__column {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    gap: 6px;
+    border: 2px solid #efefef;
+    border-radius: 4px;
+    background: #efefef;
+    height: 334px;
+    width: 230px;
+    border: 2px solid rgba(126, 126, 126, 0.1);
+  }
+
+  .section__column-title {
+    margin: 3px 0;
+    color: gray;
+    font-weight: 400;
+    font-size: 14px;
+    height: 30px;
+  }
+
+  .section__actions {
+    min-height: 34px;
+    height: 34px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  // Material
+  .mat-mdc-tab-group {
+    width: 100%;
+  }
+
+  .mat-mdc-tab-body {
+    height: 100% !important;
+  }
+
+  .mdc-linear-progress__bar-inner {
+    border-color: var(--app_yellow) !important;
+  }
+
+  // Other
+  .operation-display {
+    font-size: 12px;
+    height: 42px;
+    min-width: 280px;
+    width: 50%;
+    max-width: 450px;
+    border: 1px solid rgba(125, 125, 125, 0.1);
+    border-color: transparent;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2px;
+    line-height: 1.3;
+    color: #000;
+    position: relative;
+
+    &.success {
+      color: var(--app_green);
+    }
+
+    &.error {
+      color: var(--mat-sys-error);
+      background: var(--mat-sys-error-container);
+    }
+
+    .countdown-value {
+      position: relative;
+      z-index: 1;
+      font-size: 16px;
+      font-weight: 500;
+      // font-family: "Roboto Mono";
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--app_yellow);
+    }
+
+    .countdown-block {
+      position: absolute;
+      z-index: 0;
+
+      &::before {
+        display: flex;
+        position: relative;
+        content: "";
+        background: #fff;
+
+        width: 38px;
+        height: 38px;
+
+        border-radius: 100%;
+
+        border-top: 1px solid var(--app_yellow);
+
+        animation-name: spin;
+        animation-duration: 1000ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+    }
+  }
+
+  app-basic-button + app-basic-button {
+    margin-left: 5px;
+  }
+}

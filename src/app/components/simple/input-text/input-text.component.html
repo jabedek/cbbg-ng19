@@ -1,0 +1,19 @@
+<div [formGroup]="formGroup">
+  <label class="input-label" [for]="id()">
+    <span class="title" *ngIf="label" [ngClass]="{ required: required(), disabledLabel: disabled() === true }">
+      {{ label() }}
+    </span>
+    <input
+      [ngClass]="{ disabledInput: disabled() === true }"
+      [formControlName]="formControlName()"
+      [id]="id()"
+      [name]="label()"
+      [type]="type()"
+      [placeholder]="placeholder()"
+      [min]="attributesConfig().min"
+      [max]="attributesConfig().max"
+      [step]="attributesConfig().step"
+      [required]="required()"
+      [maxLength]="attributesConfig().maxLength || 1000" />
+  </label>
+</div>

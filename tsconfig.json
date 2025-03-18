@@ -3,25 +3,46 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022"
+    "target": "ES2023",
+    "module": "es2022",
+    "lib": ["ES2023", "dom"],
+    "typeRoots": ["node_modules/@types", "node_modules/@angular"],
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@services/*": ["src/app/services/*"],
+      "@views/*": ["src/app/views/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
+    // "extendedDiagnostics": {
+    //   "checks": {
+    //     "optionalChainNotNullable": "suppress"
+    //   }
+    // }
   }
 }

@@ -6,6 +6,11 @@
 /out-tsc
 /bazel-out
 
+
+
+
+firebase-cred-ignore.ts
+
 # Node
 /node_modules
 npm-debug.log
@@ -40,3 +45,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

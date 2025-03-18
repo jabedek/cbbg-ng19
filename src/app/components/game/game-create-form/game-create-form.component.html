@@ -1,0 +1,68 @@
+<section>
+  <p class="section__title">
+    {{ !gamesLobby.gameStage() ? "New Game" : "" }}
+    {{ gamesLobby.gameStage() === "assembly" ? "Game Assembly" : "" }}
+  </p>
+
+  <div class="section__desc">
+    <span>(auto saving every {{ UPDATE_INTERVAL_SECONDS }} seconds)</span>
+  </div>
+
+  <div class="section__content">
+    <!-- Part 1: Config -->
+    <div class="section__column">
+      <div class="section__column-title">Config</div>
+      <app-game-lobby-config (configChange)="updateLocalGameConfig($event)" />
+    </div>
+
+    <!-- Part 2: Questions -->
+    <div class="section__column">
+      <div class="section__column-title">Questions</div>
+      <!-- TODO: updating questions error - changes order? -->
+      <app-game-lobby-questions (questionsChange)="updateLocalGameRounds($event)" />
+    </div>
+
+    <!-- Part 3: Players -->
+    <div class="section__column">
+      <div class="section__column-title">Players</div>
+      <app-game-lobby-seats (seatsChange)="updateLocalGameSeats($event)" />
+    </div>
+  </div>
+
+  <div
+    class="operation-display"
+    [ngClass]="{ error: operationDisplay.status === 'error', success: operationDisplay.status === 'success' }">
+    @if (operationDisplay.status === "pending") {
+      <mat-progress-bar mode="indeterminate" />
+    }
+
+    @if (operationDisplay.message) {
+      {{ operationDisplay.message }}
+    }
+
+    @if (initCountdoown() > -1) {
+      <div class="countdown-value">
+        {{ initCountdoown() }}
+      </div>
+      <span class="countdown-block"></span>
+    }
+  </div>
+
+  <div class="section__actions">
+    <!-- Init -->
+    <app-basic-button
+      *ngIf="!gamesLobby.gameStage()"
+      label="Next"
+      (clicked)="gamesLobby.initNewGame()"
+      [disabled]="false"
+      [colorCode]="'var(--app_blue)'" />
+    <!-- Start -->
+    <app-basic-button
+      *ngIf="gamesLobby.gameStage() === 'assembly'"
+      label="Play"
+      (clicked)="(undefined)"
+      [colorCode]="'var(--app_green)'" />
+
+    <app-basic-button label="Cancel" (clicked)="(undefined)" [colorCode]="'var(--app_brown)'" />
+  </div>
+</section>

@@ -1,0 +1,12 @@
+html {
+  --scrollbarBG: #f3e6c2c0;
+  --thumbBG: #d9c38d;
+  --scrollbarBG1: color-mix(in hsl, var(--app_yellow) 17%, white);
+  --thumbBG1: color-mix(in hsl, var(--app_yellow) 17%, lightgray);
+}
+
+* {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG1) var(--scrollbarBG1);
+}

@@ -1,0 +1,36 @@
+<div class="main flex w-full flex-col overflow-y-scroll">
+  <div
+    class="header text-md flex h-[24px] min-h-[24px] w-full items-center justify-between border-b border-solid border-stone-300 px-[1px] py-[1px]">
+    <div class="info name">name</div>
+    <div class="info seats">open seats</div>
+    <div class="info password">password</div>
+    <div class="info rounds">rounds</div>
+    <div class="info user">your seat</div>
+  </div>
+  @for (game of publicGames.value(); track game._id; let i = $index, e = $even) {
+    <div
+      class="data text-md flex h-[24px] min-h-[24px] w-full items-center justify-between border-b border-solid border-stone-300 px-[1px] py-[1px]  {{
+        e ? 'bg-stone-200' : 'bg-zinc-200'
+      }}"
+      [ngClass]="{ selected: selectedGame()?._id && selectedGame()?._id === game._id }"
+      (click)="selectedGame.set(selectedGame()?._id === game._id ? undefined : game)">
+      <div class="control-text name">
+        {{ game.name }}
+      </div>
+      <div class="control-text seats">
+        {{ game | gamesListSeats }}
+      </div>
+      <div class="control-text password">
+        {{ game.password ? "NO" : "YES" }}
+      </div>
+      <div class="control-text rounds">
+        {{ game.roundsData.roundsAmountLimit }}
+      </div>
+      <div class="control-text user">
+        {{ game | gamesListInvited }}
+      </div>
+    </div>
+  } @empty {
+    Currently there are no games available to join.
+  }
+</div>

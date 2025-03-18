@@ -1,0 +1,26 @@
+@use "src/assets/styles/content.scss";
+
+:host ::ng-deep {
+  .inactive {
+    filter: brightness(0.92) grayscale(1) blur(1px);
+    color: rgb(150, 150, 150);
+    // overflow: hidden;
+
+    * > * {
+      filter: brightness(0.92) grayscale(1) blur(1px);
+      color: rgb(150, 150, 150);
+      // overflow: hidden;
+    }
+  }
+
+  .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,
+  .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic {
+    stroke: var(--app_yellow) !important;
+  }
+
+  app-game-lobby-config,
+  app-game-lobby-questions,
+  app-game-lobby-seats {
+    width: 100%;
+  }
+}

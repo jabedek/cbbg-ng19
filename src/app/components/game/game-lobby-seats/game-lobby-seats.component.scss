@@ -1,0 +1,274 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+@use "src/assets/styles/_icons.scss";
+
+:host {
+  height: 100%;
+  .seats {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    height: 288px;
+  }
+
+  .seat {
+    border-color: #c8c8c8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  div {
+    transition: all 200ms;
+    &.Invitation {
+      &::before {
+        transition: all 200ms;
+        background: var(--app_green);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Invitation";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.Closed {
+      background: #c8c8c8;
+      border-color: #bfbfbf !important;
+
+      &::before {
+        transition: all 200ms;
+        background: gray;
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Closed";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.Opened {
+      background: #eee !important;
+
+      &::before {
+        transition: all 200ms;
+        background: var(--app_green);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Opened";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.Taken {
+      border: 4px solid var(--app_yellow_light);
+      background: #fff;
+    }
+
+    &.Host {
+      &::before {
+        transition: all 200ms;
+        background: var(--app_yellow);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Host";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.CurrentActionDoer {
+      &::after {
+        transition: all 200ms;
+        background: var(--app_blue);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "You";
+        padding: 2px 5px;
+        color: #fff;
+        bottom: -20px;
+      }
+    }
+  }
+
+  .username {
+    // left: 50%;
+    // position: relative;
+    width: 100%;
+    position: absolute;
+    user-select: none;
+    // left: 50%;
+    // transform: translate(50%);
+
+    &.empty {
+      font-weight: 400 !important;
+      color: vaR(--app_gray_darker);
+      // text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  .actions-variant {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2px;
+    top: 26px;
+    position: relative;
+
+    border: 1px solid rgba(126, 126, 126, 0.2);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    backdrop-filter: blur(1px);
+  }
+
+  .option {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 22px;
+    max-width: 22px;
+    height: 22px;
+
+    &.icon-public_on {
+      $size: 21px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/public_on.svg", $size, $size, var(--app_green));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-public_off {
+      $size: 21px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/public_off.svg", $size, $size, var(--app_orange));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-plus {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/plus.svg", $size, $size, #000);
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-minus {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/minus.svg", $size, $size, #fff);
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-invites {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/invites.svg", $size, $size, var(--app_green));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-kick {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/kick.svg", $size, $size, var(--app_orange));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-kick-disabled {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/kick.svg", $size, $size, rgb(166, 166, 166));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-cancel_cross {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/cancel_cross.svg", $size, $size, var(--app_orange));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-message {
+      $size: 22px;
+      &::after {
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/message.svg", $size, $size, var(--app_yellow));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-grey::after {
+      background-color: rgb(166, 166, 166) !important;
+    }
+  }
+}

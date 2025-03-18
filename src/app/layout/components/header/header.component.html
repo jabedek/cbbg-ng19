@@ -1,0 +1,35 @@
+<header
+  class="fixed z-200 flex h-(--header_height) w-screen content-center items-center justify-between bg-[#efefef] px-[10px] shadow-[barely_visible_divider]">
+  <app-logo />
+  <div *ngIf="userName()" class="play-button" [routerLink]="'/lobby'"></div>
+  <div class="flex items-center gap-4">
+    <p>{{ userName() }}</p>
+    <app-burger-menu #burger [(burgerOpen)]="burgerOpen" />
+  </div>
+</header>
+
+<div
+  class="burger-menu-content"
+  [ngClass]="{ burgerOpen: burgerOpen() }"
+  appOutclick
+  [outclickActive]="burgerOpen()"
+  (closeOutclick)="burger.close()">
+  <div class="user">
+    <app-basic-button
+      *ngIf="userName()"
+      [label]="'Account'"
+      (click)="burger.close(); router.navigateByUrl('account')" />
+
+    <app-basic-button
+      *ngIf="userName()"
+      [colorCode]="'var(--app_blue)'"
+      [label]="'Logout'"
+      (click)="burger.close(); logout()" />
+
+    <app-basic-button
+      *ngIf="!userName()"
+      [colorCode]="'var(--app_blue)'"
+      [label]="'Login'"
+      (click)="burger.close(); login()" />
+  </div>
+</div>

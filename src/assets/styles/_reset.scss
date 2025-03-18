@@ -1,0 +1,38 @@
+@layer base {
+  /* # Moves citation marks to the side. Does not work in Chrome */
+  html {
+    hanging-punctuation: first last;
+  }
+
+  body {
+    /* # Add accessible line-height */
+    line-height: 1.5;
+    /* # Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* # Improve scrolling */
+  :has(:target) {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header_height);
+  }
+
+  /* # Improve text wrapping and overflows */
+  p {
+    text-wrap: pretty;
+    max-width: 75ch;
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    font-weight: inherit;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+}

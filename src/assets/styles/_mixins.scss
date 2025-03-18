@@ -1,0 +1,55 @@
+@mixin icon-mask(
+  $iconUrl,
+  $width,
+  $height,
+  $color-default,
+  $color-hover: $color-default,
+  $color-active: $color-default
+) {
+  mask: url($iconUrl) no-repeat;
+  -webkit-mask: url($iconUrl) no-repeat;
+  background-color: $color-default;
+  mask-size: contain;
+  width: $width;
+  height: $height;
+  transition: all 150ms;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &:hover {
+    background-color: $color-hover !important;
+  }
+
+  &:active {
+    background-color: $color-active !important;
+  }
+
+  box-shadow: 1px 1px 2px black;
+  text-shadow: 1px 1px 2px black inset;
+}
+
+@mixin clickable-btn($standard: true, $color: null) {
+  cursor: pointer;
+  user-select: none;
+  transition: all 200ms;
+
+  &:hover:not(.disabled):not(:disabled) {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  }
+
+  &:focus:not(.disabled):not(:disabled) {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &:active:not(.disabled):not(:disabled) {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+    @if $standard {
+      filter: brightness(1.05);
+    } @else {
+      backdrop-filter: brightness(1.05);
+    }
+  }
+}

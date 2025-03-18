@@ -1,0 +1,3 @@
+import 'frotsi';
+
+export {};

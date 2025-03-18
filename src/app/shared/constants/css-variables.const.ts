@@ -1,0 +1,16 @@
+export const CSS_Variables = {
+  $app_yellow: '#f0b900',
+  $app_yellow_light: '#ffe799',
+  $app_orange: '#dc6400',
+  $app_orange_light: '#ffbc85',
+  $app_brown: '#8F4000',
+  $app_blue: '#2b59c3',
+  $app_blue_shadow: '0 2px 5px #2b59c3c0',
+  $app_blue_light: '#abbfed',
+  $app_green: '#44bba4',
+  $app_green_light: '#b5e3db',
+  $app_gray: '#ddd',
+  $app_gray_light: '#efefef',
+  $app_gray_dark: '#ccc',
+  $app_gray_darker: '#aaa',
+} as const;

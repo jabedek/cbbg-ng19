@@ -1,0 +1,39 @@
+<section>
+  <p class="section__title">Public Games</p>
+
+  <div class="section__desc">
+    <span>(auto refresh every {{ PUBLICS_INTERVAL_SECONDS }} seconds)</span>
+  </div>
+
+  <div class="section__content">
+    <app-public-games-list [(selectedGame)]="selectedGame" />
+  </div>
+
+  <div
+    class="operation-display"
+    [ngClass]="{ error: operationDisplay.status === 'error', success: operationDisplay.status === 'success' }">
+    @if (operationDisplay.status === "pending") {
+      <mat-progress-bar mode="indeterminate" />
+    }
+
+    @if (operationDisplay.message) {
+      {{ operationDisplay.message }}
+    }
+
+    @if (initCountdoown() > -1) {
+      <div class="countdown-value">
+        {{ initCountdoown() }}
+      </div>
+      <span class="countdown-block"></span>
+    }
+  </div>
+
+  <div class="section__actions">
+    <!-- Join -->
+    <app-basic-button
+      label="Join"
+      (clicked)="join()"
+      [disabled]="!selectedGame()?._id"
+      [colorCode]="'var(--app_blue)'" />
+  </div>
+</section>

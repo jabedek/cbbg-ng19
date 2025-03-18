@@ -1,0 +1,9 @@
+<button
+  class="cursor-pointer rounded-[4px] border-[2px] border-solid px-[0.7em] py-[0.2em] text-[0.96rem] font-medium tracking-[0.5px] text-white uppercase shadow-[basic_button_shadow] outline-none [&.bigger]:rounded-[8px] [&.bigger]:px-[1.4em] [&.bigger]:py-[0.4em] [&.bigger]:text-[0.96rem] [&.disabled]:cursor-default [&.disabled]:text-gray-400 [&.disabled]:brightness-[1.35] [&.disabled]:grayscale [&.small]:text-[0.75rem]"
+  [ngClass]="{ disabled: disabled(), small: sizeVariant() === 'small', bigger: sizeVariant() === 'bigger' }"
+  [style.borderColor]="borderColor()"
+  [style.background]="colorCode()"
+  (click)="disabled() != true && clicked.emit()"
+  [disabled]="disabled()">
+  {{ label() }}
+</button>
