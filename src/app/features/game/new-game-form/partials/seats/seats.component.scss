@@ -1,0 +1,332 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+@use "src/assets/styles/_icons.scss";
+@use "src/assets/styles/_material.scss";
+:host {
+  $item_height: 58px;
+  display: flex;
+  width: 70px;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  margin-bottom: 30px;
+
+  .section__title {
+    position: relative;
+  }
+
+  .seats-title {
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+    &::before {
+      font-size: 9px !important;
+      color: var(--app_gray_darker);
+      z-index: 3;
+      transform: translateX(-10px) translateY(16px);
+      width: 60px;
+      position: absolute;
+      content: "(min 3 players)";
+    }
+  }
+
+  .seats {
+    display: flex;
+    height: 100%;
+    // width: 100%;
+    width: calc($item_height + 2px);
+    height: 420px;
+    padding-top: 8px;
+  }
+
+  .list {
+    height: fit-content;
+
+    display: flex;
+    // flex-direction: row !important;
+    align-items: center;
+    justify-content: space-between;
+    // min-width: 360px;
+    width: calc(4 * $item_height);
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100%;
+    justify-content: space-between;
+    gap: 16px;
+    // gap: 16px;
+    // padding: 8px 0;
+  }
+
+  .seat {
+    display: flex;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    min-height: $item_height;
+    height: $item_height;
+    min-width: $item_height;
+    width: $item_height;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 4px solid var(--app_gray);
+    background: #efefef;
+    padding: 0.3em 0.5em;
+    text-align: center;
+    font-size: 0.7rem;
+    line-height: 1.3;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+
+    &.Closed {
+      background: #c8c8c8;
+      border-color: #bfbfbf !important;
+
+      &::before {
+        transition: all 200ms;
+        background: gray;
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Closed";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.Opened {
+      background: #eee !important;
+
+      &::before {
+        transition: all 200ms;
+        background: var(--app_green);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Open";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.Invitation {
+      &::before {
+        transition: all 200ms;
+        background: var(--app_green);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Invitation";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+
+    &.Taken {
+      border: 4px solid var(--app_yellow_light);
+      background: #fff;
+    }
+
+    &.Host {
+      &::before {
+        transition: all 200ms;
+        background: var(--app_yellow);
+        border-radius: 3px;
+        text-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.5);
+        box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        font-weight: 500;
+        content: "Host";
+
+        font-weight: 400;
+        padding: 1.5px 4px;
+        color: #fff;
+        top: -8px;
+        height: 16px;
+        font-size: 10px;
+      }
+    }
+  }
+
+  .username {
+    // left: 50%;
+    // position: relative;
+    width: 100%;
+    position: absolute;
+    user-select: none;
+    // left: 50%;
+    // transform: translate(50%);
+
+    &.empty {
+      font-weight: 400 !important;
+      color: var(--app_gray_darker);
+      // text-shadow: 0.5px 0.5px 2px rgba(0, 0, 0, 0.85);
+    }
+
+    &.pending {
+      color: #000;
+    }
+  }
+
+  .actions-variant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    top: 26px;
+    position: relative;
+    height: 22px;
+    max-height: 22px;
+    min-width: 22px;
+  }
+
+  .option {
+    border: 1px solid rgba(126, 126, 126, 0.2);
+    border-radius: 3px;
+    // background: rgba(255, 255, 255, 0.2);
+    // backdrop-filter: blur(1px);
+
+    background: rgba(235, 235, 235, 0.5);
+    backdrop-filter: blur(2px) brightness(1.1);
+
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 22px;
+    max-width: 22px;
+    min-height: 22px;
+    width: 22px !important;
+    height: 22px !important;
+
+    &::after {
+      // width: 22px !important;
+      // height: 22px !important;
+    }
+
+    &.icon-public_on {
+      &::after {
+        $size: 18px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/public_on.svg", $size, $size, var(--app_green));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-public_off {
+      &::after {
+        $size: 18px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/public_off.svg", $size, $size, var(--app_orange));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    // &.icon-plus {
+    //   &::after {
+    //     $size: 18px;
+    //     content: "";
+    //     position: absolute;
+    //     @include mix.icon-mask("/assets/icons/svg/plus.svg", $size, $size, #000);
+    //     width: $size;
+    //     height: $size;
+    //   }
+    // }
+
+    // &.icon-minus {
+    //   &::after {
+    //     $size: 22px;
+    //     content: "";
+    //     position: absolute;
+    //     @include mix.icon-mask("/assets/icons/svg/minus.svg", $size, $size, #fff);
+    //     width: $size;
+    //     height: $size;
+    //   }
+    // }
+
+    &.icon-invites {
+      &::after {
+        $size: 19px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/invites.svg", $size, $size, var(--app_green));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-kick {
+      &::after {
+        $size: 20px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/kick.svg", $size, $size, var(--app_orange));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-kick-disabled {
+      &::after {
+        $size: 20px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/kick.svg", $size, $size, rgb(166, 166, 166));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-cancel_cross {
+      &::after {
+        $size: 20px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/cancel_cross.svg", $size, $size, var(--app_orange));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-message {
+      &::after {
+        $size: 22px;
+        content: "";
+        position: absolute;
+        @include mix.icon-mask("/assets/icons/svg/message.svg", $size, $size, var(--app_yellow));
+        width: $size;
+        height: $size;
+      }
+    }
+
+    &.icon-grey::after {
+      background-color: rgb(166, 166, 166) !important;
+    }
+  }
+}

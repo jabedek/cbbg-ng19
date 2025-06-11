@@ -1,0 +1,63 @@
+.operation-display {
+  font-size: 12px;
+  height: 42px;
+  min-width: 280px;
+  width: 50%;
+  max-width: 450px;
+  border: 1px solid rgba(125, 125, 125, 0.1);
+  border-color: transparent;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2px;
+  line-height: 1.3;
+  color: #000;
+  position: relative;
+
+  &.success {
+    color: var(--app_green);
+  }
+
+  &.error {
+    color: var(--mat-sys-error);
+    background: var(--mat-sys-error-container);
+  }
+
+  .countdown-value {
+    position: relative;
+    z-index: 1;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--app_yellow);
+  }
+
+  .countdown-block {
+    position: absolute;
+    z-index: 0;
+
+    &::before {
+      display: flex;
+      position: relative;
+      content: "";
+      background: #fff;
+
+      width: 38px;
+      height: 38px;
+
+      border-radius: 100%;
+
+      border-top: 1px solid var(--app_yellow);
+
+      animation-name: spin;
+      animation-duration: 1000ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+  }
+}

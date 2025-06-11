@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Game Invite</h2>
+<mat-dialog-content>
+  <p>Please select a friend from list below</p>
+  <app-friends-list [(selectedFriend)]="selectedFriend" [gameInvitationMode]="true" />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="buttons">
+    <app-basic-button sizeVariant="small" [colorCode]="'var(--app_brown)'" [label]="'Close'" (click)="handleCancel()" />
+    <app-basic-button
+      sizeVariant="small"
+      [disabled]="!selectedFriend()"
+      [label]="'Accept'"
+      [mat-dialog-close]="selectedFriend()" />
+  </div>
+</mat-dialog-actions>

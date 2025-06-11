@@ -7,9 +7,7 @@
     "types": ["jasmine"],
     "paths": {
       "@assets/*": ["src/assets/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "@services/*": ["src/app/services/*"],
-      "@views/*": ["src/app/views/*"]
+      "@shared/*": ["src/app/features/shared/*"]
     }
   },
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]

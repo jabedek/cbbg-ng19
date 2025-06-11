@@ -1,0 +1,125 @@
+<div class="section__title">
+  <div class="seats-title">Seats</div>
+</div>
+<div class="seats">
+  <div class="list" [ngClass]="{ inactive: games.gameStage !== 'setup' || gameRemoteUpdating }">
+    @for (seat of seatsData; track seat.index; let i = $index, e = $even) {
+      <div
+        class="seat"
+        [ngClass]="{
+          Closed: gameInSetup && seat.status === 'closed',
+          Opened: gameInSetup && seat.status === 'opened-empty',
+          Invitation: gameInSetup && seat.status === 'pending-invitation',
+          Taken: gameInSetup && seat.status === 'taken',
+          Host: gameInSetup && seat.takenInfo?.userId === games.hostPlayerId,
+        }">
+        <div
+          class="username"
+          [ngClass]="{
+            empty: !seat.takenInfo?.userName && seat.status !== 'closed',
+            pending: seat.status === 'pending-invitation' && seat?.invitationInfo,
+          }"
+          #tooltip="matTooltip"
+          [matTooltip]="
+            seat.status === 'pending-invitation' && (seat.invitationInfo?.userName || '').length > 7
+              ? seat.invitationInfo?.userName
+              : ''
+          "
+          matTooltipPosition="below">
+          @if (seat.takenInfo?.userName) {
+            {{ seat.takenInfo?.userName }}
+          }
+
+          @if (seat.status === "pending-invitation" && seat?.invitationInfo) {
+            <!-- (pending) -->
+            @if ((seat.invitationInfo?.userName || "").length > 7) {
+              {{ seat.invitationInfo?.userName | slice: 0 : 7 }}...
+            } @else {
+              {{ seat.invitationInfo?.userName }}
+            }
+          }
+
+          @if (!seat.takenInfo?.userName && seat.status !== "closed" && seat.status !== "pending-invitation") {
+            (empty)
+          }
+        </div>
+
+        <div class="actions-variant">
+          <app-dev-comment text="Variant: closed; Actions: open / invite" />
+          @if (seat.status === "closed" && games.userIsHost) {
+            @if (gameInSetup) {
+              <p
+                class="option"
+                [ngClass]="{ 'icon-public_on': games.userIsHost }"
+                (click)="seatsEditable && processSeatAccess(seat.index, 'open')"
+                #tooltip="matTooltip"
+                matTooltip="Open this seat"
+                matTooltipPosition="below"></p>
+
+              <p
+                class="option"
+                [ngClass]="{ 'icon-invites': games.userIsHost }"
+                (click)="seatsEditable && processSeatInvitation(seat.index)"
+                #tooltip="matTooltip"
+                matTooltip="Invite a friend"
+                matTooltipPosition="below"></p>
+            }
+          }
+
+          <app-dev-comment text="Variant: opened; Actions: close / invite" />
+          @if (seat.status === "opened-empty") {
+            @if (gameInSetup) {
+              <p
+                class="option"
+                [ngClass]="{ 'icon-public_off': games.userIsHost }"
+                (click)="seatsEditable && processSeatAccess(seat.index, 'close')"
+                #tooltip="matTooltip"
+                matTooltip="Close this seat"
+                matTooltipPosition="below"></p>
+
+              <p
+                class="option"
+                [ngClass]="{ 'icon-invites': games.userIsHost }"
+                (click)="seatsEditable && processSeatInvitation(seat.index)"
+                #tooltip="matTooltip"
+                matTooltip="Invite a friend"
+                matTooltipPosition="below"></p>
+            }
+          }
+
+          <app-dev-comment text="Variant: invitation; Actions: clear" />
+          @if (seat.status === "pending-invitation") {
+            @if (gameInSetup) {
+              <p
+                class="option"
+                [ngClass]="{ 'icon-cancel_cross': games.userIsHost }"
+                (click)="seatsEditable && processSeatEmptying(seat.index)"
+                #tooltip="matTooltip"
+                matTooltip="Cancel invitation"
+                matTooltipPosition="below"></p>
+            }
+          }
+
+          <app-dev-comment text="Variant: taken; Actions: kick" />
+          @if (seat.status === "taken") {
+            <div class="actions-variant">
+              @if (gameInSetup) {
+                <p
+                  class="option"
+                  [ngClass]="{
+                    'icon-kick': games.userIsHost && seat.takenInfo?.userId !== currentUserId,
+                  }"
+                  (click)="seatsEditable && processSeatEmptying(seat.index)"
+                  #tooltip="matTooltip"
+                  [matTooltip]="seat.takenInfo?.userId !== currentUserId ? 'Kick this player' : ''"
+                  matTooltipPosition="below">
+                  {{ seat.takenInfo?.userName }}
+                </p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

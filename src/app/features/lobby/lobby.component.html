@@ -1,0 +1,54 @@
+<!-- <div class="columns"> -->
+<div class="card">
+  <div class="card__content">
+    <section>
+      <p class="card__title">Public Games</p>
+
+      <!-- <div class="section__desc">
+        <span>(auto refresh every {{ IntervalsMSpublics / 1000 }} seconds)</span>
+      </div> -->
+
+      <div class="section__content">
+        <app-public-games-list [(selectedGame)]="selectedGame" />
+      </div>
+
+      <!-- <app-operation-display [operationDisplay]="operationDisplay" /> -->
+      <!-- <div
+        class="operation-display"
+        [ngStyle]="{ width: '100%' }"
+        [ngClass]="{ error: operationDisplay.status === 'error', success: operationDisplay.status === 'success' }">
+        @if (operationDisplay.status === "pending") {
+          <mat-progress-bar mode="indeterminate" />
+        }
+
+        @if (operationDisplay.message) {
+          {{ operationDisplay.message }}
+        }
+
+        @if (initCountdoown() > -1) {
+          <div class="countdown-value">
+            {{ initCountdoown() }}
+          </div>
+          <span class="countdown-block"></span>
+        }
+      </div> -->
+
+      <div class="section__actions">
+        <!-- Join -->
+        <app-basic-button
+          label="Join"
+          (clicked)="join()"
+          [disabled]="!selectedGame()?._id"
+          [colorCode]="'var(--app_blue)'" />
+      </div>
+    </section>
+
+    <div class="setup">
+      <p>Or...</p>
+      <app-basic-button [label]="'Setup new game'" (click)="moveNewGameToInit()" />
+    </div>
+
+    <app-operation-display [operationDisplay]="operationDisplay" />
+  </div>
+</div>
+<!-- </div> -->

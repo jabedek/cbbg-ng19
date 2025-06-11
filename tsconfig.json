@@ -29,9 +29,7 @@
     "typeRoots": ["node_modules/@types", "node_modules/@angular"],
     "paths": {
       "@assets/*": ["src/assets/*"],
-      "@shared/*": ["src/app/shared/*"],
-      "@services/*": ["src/app/services/*"],
-      "@views/*": ["src/app/views/*"]
+      "@shared/*": ["src/app/features/shared/*"]
     }
   },
   "angularCompilerOptions": {

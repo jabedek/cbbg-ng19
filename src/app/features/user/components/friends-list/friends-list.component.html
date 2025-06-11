@@ -1,0 +1,63 @@
+<div class="main-wrapper">
+  <div class="section__title">Friends</div>
+
+  <section [style.minHeight]="24 * 5 + 'px'" [style.height]="gameInvitationMode() ? 24 * 5 + 'px' : '100%'">
+    @for (friend of filteredFriends; track friend._id; let i = $index, e = $even) {
+      <div
+        class="data-item"
+        [ngClass]="{ selected: selectedFriend()?._id && selectedFriend()?._id === friend._id }"
+        (click)="selectedFriend.set(selectedFriend()?._id === friend._id ? undefined : friend)">
+        <div
+          class="control-text logged"
+          [ngClass]="{
+            online: friend.active && friend.logged,
+            offline: friend.active && !friend.logged,
+            inactive: !friend.active,
+          }"
+          #tooltip="matTooltip"
+          [matTooltip]="!friend.active ? 'Inactive' : friend.logged ? 'Online' : 'Offline'"
+          matTooltipPosition="left"></div>
+
+        <div
+          class="control-text name"
+          #tooltip="matTooltip"
+          [matTooltip]="friend.displayName"
+          matTooltipPosition="left">
+          {{ friend.displayName }}
+        </div>
+
+        <div class="control-text email" #tooltip="matTooltip" [matTooltip]="friend.email" matTooltipPosition="left">
+          {{ friend.email }}
+        </div>
+
+        <div class="control-text actions" *ngIf="!gameInvitationMode()">
+          <div class="action">Remove</div>
+        </div>
+      </div>
+    } @empty {
+      Currently you have no friends.
+    }
+  </section>
+
+  <div class="section__title">Friends Invites - Received</div>
+  <section [style.minHeight]="24 * 3 + 'px'" [style.height]="gameInvitationMode() ? 24 * 3 + 'px' : '100%'">
+    @if (!gameInvitationMode()) {
+      <div class="section__column">
+        <div class="section__column-row"></div>
+      </div>
+    }
+  </section>
+
+  <div class="section__title">Friends Invites - Sent</div>
+  <section [style.minHeight]="24 * 3 + 'px'" [style.height]="gameInvitationMode() ? 24 * 3 + 'px' : '100%'">
+    @if (!gameInvitationMode()) {
+      <div class="section__column">
+        <div class="section__column-row"></div>
+      </div>
+    }
+  </section>
+  <!--
+  @if (!gameInvitationMode()) {
+    <app-operation-display [operationDisplay]="operationDisplay" />
+  } -->
+</div>

@@ -1,0 +1,41 @@
+<div class="main">
+  <div class="header">
+    <div class="info name">name</div>
+    <div class="info rounds">rounds</div>
+    <div class="info password">password</div>
+    <div class="info playersSeats">open seats</div>
+    <div class="info user">your seat</div>
+    <div class="info createdAt">added</div>
+  </div>
+  <!-- @let selectedGameId = selectedGame()?._id; -->
+  <!-- selectedGameId: {{ selectedGameId }} -->
+  @for (game of publicGames.value(); track game._id; let i = $index, e = $even) {
+    <div
+      class="data"
+      [ngStyle]="{ background: e ? '#fff' : '#f6f6f6' }"
+      [ngClass]="{ selected: selectedGame()?._id && selectedGame()?._id === game._id }"
+      (click)="selectedGame.set(selectedGame()?._id === game._id ? undefined : game)">
+      <div class="control-text name">
+        {{ game.gameName }}
+      </div>
+      <div class="control-text rounds">
+        {{ game.roundsAmountLimit }}
+      </div>
+      <div class="control-text password">
+        {{ game.gamePassword ? "✗" : "✓" }}
+      </div>
+      <div class="control-text playersSeats">
+        {{ game | gamesListSeats }}
+      </div>
+      <div class="control-text user">
+        {{ game | gamesListInvited }}
+      </div>
+      <div class="control-text createdAt">
+        {{ game._createdAt | date: "hh:mm" }}
+        {{ game._createdAt | date: "dd/MM" }}
+      </div>
+    </div>
+  } @empty {
+    Currently there are no games available to join.
+  }
+</div>

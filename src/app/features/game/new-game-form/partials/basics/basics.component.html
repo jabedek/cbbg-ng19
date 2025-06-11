@@ -1,0 +1,39 @@
+<div [formGroup]="parentForm" class="basics">
+  <!-- {{ parentForm.getRawValue() | json }} -->
+  @if (form) {
+    <form
+      [formGroup]="form"
+      class=""
+      [ngClass]="{
+        inactive: (games.gameStage === 'setup' && !games.userIsHost) || games.gameRemoteUpdating(),
+      }">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="gameName" [required]="true" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="gamePassword" [required]="false" type="password" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rounds amount</mat-label>
+        <input matInput formControlName="roundsAmountLimit" [required]="true" type="number" />
+      </mat-form-field>
+
+      <div class="length">
+        <label>Turn length *</label>
+        <mat-radio-group
+          formControlName="roundLengthMS"
+          appearance="outline"
+          [required]="true"
+          aria-label="Turn length">
+          @for (option of RoundLengthsOptions; track option.value) {
+            <mat-radio-button [value]="option.value">{{ option.label }}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+    </form>
+  }
+</div>

@@ -1,0 +1,32 @@
+<div class="section__title">Rounds</div>
+<div [formGroup]="parentForm" class="questions">
+  <form
+    [formArrayName]="formName"
+    class="list"
+    [ngClass]="{ inactive: games.gameStage !== 'setup' || gameRemoteUpdating }"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    [style.height.px]="formControls.length * 42 + 2">
+    @for (round of formControls; track i; let i = $index, e = $even) {
+      <div cdkDrag class="list-item" [ngClass]="{ even: e }">
+        <div class="roundQuestion">
+          <div class="message" [ngClass]="{ chosen: round.value }">
+            <span class="roundHeader">
+              <span>Round #{{ i + 1 }}</span>
+              Question
+            </span>
+          </div>
+          <mat-form-field appearance="outline">
+            <mat-select [formControlName]="i" [compareWith]="compareFn">
+              @for (questionsOption of questionsOptions; track questionsOption.value) {
+                <mat-option [value]="questionsOption.value">
+                  {{ questionsOption.label }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    }
+  </form>
+</div>

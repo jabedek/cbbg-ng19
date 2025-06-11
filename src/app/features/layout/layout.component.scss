@@ -1,0 +1,31 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+
+:host {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  // border: 2px solid black;
+
+  .wrapper {
+    // border: 1px solid black;
+    position: relative;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 1024px;
+    height: 100%;
+    overflow: hidden;
+  }
+}

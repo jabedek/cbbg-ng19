@@ -1,0 +1,23 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+
+:host {
+  // border: 1px solid black;
+}
+
+header {
+  padding: 10px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+  max-width: 1024px;
+
+  .navigation {
+    width: 250px;
+    display: flex;
+    justify-content: flex-end;
+    // gap: 10px;
+    // align-items: center;
+  }
+}

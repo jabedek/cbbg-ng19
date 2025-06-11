@@ -1,0 +1,24 @@
+<div
+  class="operation-display"
+  [ngClass]="{ error: operationDisplay().status === 'error', success: operationDisplay().status === 'success' }">
+  <!-- Loading requests -->
+  @if (operationDisplay().status !== "countdown") {
+    @if (operationDisplay().status === "pending") {
+      <mat-progress-bar mode="indeterminate" />
+    }
+
+    @if (operationDisplay().message) {
+      {{ operationDisplay().message }}
+    }
+  }
+
+  <!-- Countdown -->
+  @if (operationDisplay().status === "countdown") {
+    @if (operationDisplay().message && operationDisplay().message !== "-1") {
+      <div class="countdown-value">
+        {{ operationDisplay().message }}
+      </div>
+      <span class="countdown-block"></span>
+    }
+  }
+</div>

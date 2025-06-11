@@ -1,0 +1,64 @@
+<section>
+  <p class="card__title">
+    {{ games.gameStage === "init" ? "New Game Init" : "" }}
+    {{ games.gameStage === "setup" ? "New Game Config" : "" }}
+  </p>
+
+  <div class="section__desc gameId">
+    <span>{{ games.newGameConfig._id }}</span>
+  </div>
+
+  <form [formGroup]="form" class="section__content" [ngClass]="{ formEditable: formEditable() || !form.disabled }">
+    <div class="section__column">
+      <div class="section__title">Basics</div>
+      <app-basics [formEditable]="formEditable()" />
+
+      <div class="section__actions"></div>
+    </div>
+
+    @if (formEditable() && games.gameStage !== "init") {
+      <div class="section__column">
+        <div class="columns">
+          <app-questions [formEditable]="formEditable()" />
+
+          <!-- <app-seats [formEditable]="formEditable()" /> -->
+        </div>
+      </div>
+
+      <br />
+      roundsValid:{{ roundsValid }}
+      <br />
+      seatsValid:{{ seatsValid }}
+      <br />
+    }
+  </form>
+
+  <app-operation-display [operationDisplay]="operationDisplay" />
+  <!--
+  [games.newGameConfig]:{{ games.newGameConfig.gameStage }}
+  <br />
+  [games.gameHasStarted]:{{ games.gameHasStarted() }}
+  <br />
+  [games.gameStage]:{{ games.gameStage }}
+  <br /> -->
+
+  <div class="section__actions">
+    @if (games.gameStage === "init") {
+      <app-basic-button
+        label="Next"
+        [disabled]="basicsForm.invalid"
+        (clicked)="games.initNewGameNext()"
+        [colorCode]="'var(--app_blue)'" />
+    }
+
+    @if (games.gameStage === "setup") {
+      <app-basic-button
+        label="Play"
+        (clicked)="(undefined)"
+        [disabled]="basicsForm.invalid && !roundsValid && !seatsValid"
+        [colorCode]="'var(--app_green)'" />
+    }
+
+    <app-basic-button label="Cancel" (clicked)="(undefined)" [colorCode]="'var(--app_brown)'" />
+  </div>
+</section>

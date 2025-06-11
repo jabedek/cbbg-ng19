@@ -1,0 +1,169 @@
+::ng-deep {
+  .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 16px;
+  }
+
+  .mat-mdc-notch-piece {
+    border: none !important;
+  }
+
+  .mat-mdc-form-field-type-mat-select {
+    width: 154px !important;
+    max-width: 154px !important;
+    font-family: "Signika Negative" !important;
+  }
+
+  .mat-mdc-form-field-type-mat-input {
+    width: 150px !important;
+    max-width: 150px !important;
+    font-family: "Signika Negative" !important;
+  }
+
+  mat-option {
+    padding: 0 6px !important;
+    min-height: 30px !important;
+    font-size: 12px !important;
+    font-family: "Signika Negative" !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  mat-select {
+    align-items: center !important;
+    height: 100% !important;
+    display: flex !important;
+  }
+
+  .mat-mdc-form-field {
+    height: 30px !important;
+    min-height: 30px !important;
+    max-height: 30px !important;
+    font-size: 12px !important;
+    font-family: "Signika Negative" !important;
+    letter-spacing: -0.5px !important;
+
+    .mat-mdc-text-field-wrapper {
+      border-radius: 4px !important;
+      padding: 0 4px !important;
+      font-family: "Signika Negative" !important;
+      background: var(--app_gray_light);
+      // transition: all 200ms;
+      border: 1px solid transparent !important;
+
+      &:hover {
+        border: 1px solid var(--app_gray_darker) !important;
+        ::ng-deep .mat-mdc-notch-piece {
+          border-color: var(--app_gray) !important;
+        }
+      }
+    }
+
+    .mat-mdc-form-field-infix {
+      height: 30px !important;
+      min-height: 30px !important;
+      max-height: 30px !important;
+      line-height: 30px !important;
+      padding: 0 4px !important;
+      font-size: 12px !important;
+      font-family: "Signika Negative" !important;
+      letter-spacing: -0.5px !important;
+    }
+  }
+
+  .mat-mdc-form-field.hidden {
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    display: none !important;
+  }
+
+  .mat-mdc-select-value-text {
+    font-family: "Signika Negative" !important;
+    font-size: 12px !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .mat-mdc-select-trigger {
+    display: flex !important;
+    height: 26px !important;
+
+    .mat-mdc-select-arrow-wrapper,
+    .mat-mdc-select-arrow {
+      height: 26px !important;
+    }
+  }
+
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label:not(.mdc-text-field--disabled) {
+    transform: none !important;
+    transition: top 200ms !important;
+    top: 5px !important;
+    // color: #000 !important;
+  }
+
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label.mdc-floating-label--float-above {
+    transform: none !important;
+    transition: top 200ms !important;
+    top: -20px !important;
+  }
+
+  mat-label {
+    font-size: 12px !important;
+    font-family: "Signika Negative" !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .mdc-notched-outline__leading {
+    width: 4px !important;
+  }
+
+  .mat-mdc-form-field {
+    font-size: 12px !important;
+    font-family: "Signika Negative" !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  mat-radio-button {
+    margin: 0 4px !important;
+
+    .mdc-label {
+      font-size: 12px !important;
+      font-family: "Signika Negative" !important;
+      letter-spacing: -0.5px !important;
+      margin-left: 0px !important;
+      padding-left: 0 !important;
+    }
+  }
+
+  ::ng-deep {
+    .mdc-floating-label.mdc-floating-label--float-above {
+      mat-label,
+      .mat-mdc-form-field-required-marker {
+        font-size: 10px !important;
+        font-weight: 300 !important;
+        font-family: "Signika Negative" !important;
+        letter-spacing: -0.5px !important;
+      }
+    }
+
+    .mat-mdc-floating-label:not(.mdc-floating-label.mdc-floating-label--float-above) {
+      color: #888 !important;
+    }
+  }
+
+  div.mat-mdc-select-panel {
+    background: #e6e6e6 !important;
+  }
+
+  ::ng-deep {
+    mat-dialog-actions {
+      transition: none !important;
+
+      * {
+        transition: none !important;
+      }
+    }
+
+    .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align {
+      display: none !important;
+    }
+  }
+}

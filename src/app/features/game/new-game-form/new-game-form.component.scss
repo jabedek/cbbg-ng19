@@ -1,0 +1,34 @@
+@use "src/assets/styles/content.scss";
+@use "src/assets/styles/_material.scss";
+
+:host {
+  form:not(.formEditable) {
+    ::ng-deep {
+      app-basics,
+      app-rounds,
+      app-seats {
+        filter: brightness(0.9) !important;
+        user-select: none !important;
+        pointer-events: none !important;
+
+        * {
+          user-select: none !important;
+          pointer-events: none !important;
+        }
+      }
+    }
+  }
+
+  .columns {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+  }
+
+  .gameId {
+    font-family: "Roboto Mono";
+    font-size: 10px;
+  }
+}

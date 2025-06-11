@@ -1,0 +1,250 @@
+<section>
+  <p class="card__title">
+    {{ createContext.gameStage === "init" ? "New Game Init" : "" }}
+    {{ createContext.gameStage === "setup" ? "New Game Config" : "" }}
+  </p>
+
+  <div class="section__desc gameId">
+    <span>{{ gameForm.getRawValue()._id }}</span>
+  </div>
+
+  <app-see-data title="dunno" [data]="gameForm.getRawValue()" />
+
+  <form
+    [formGroup]="gameForm"
+    class="section__content"
+    [ngClass]="{
+      formEditable: createContext.formEditable || !gameForm.disabled,
+      inactive: (createContext.gameStage === 'setup' && !createContext.userIsHost) || games2.gameRemoteUpdating(),
+    }">
+    <div class="section__column">
+      <div class="new-game-part new-game-part__basics">
+        <!-- Basics -->
+        <div class="section__title">Basics</div>
+        <div class="part-data__basics">
+          <mat-form-field class="field-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="gameName" [required]="true" />
+          </mat-form-field>
+
+          <mat-form-field class="field-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="gamePassword" [required]="false" type="password" />
+          </mat-form-field>
+
+          <mat-form-field class="field-width" appearance="outline">
+            <mat-label>Rounds amount</mat-label>
+            <input matInput formControlName="roundsAmountLimit" [required]="true" type="number" />
+          </mat-form-field>
+
+          <div class="length field-width">
+            <div class="length-label">Turn length *</div>
+            <mat-radio-group
+              class="field-width"
+              formControlName="roundLengthMS"
+              appearance="outline"
+              [required]="true"
+              aria-label="Turn length">
+              @for (option of roundLengthsOptions; track option.value) {
+                <mat-radio-button [value]="option.value">{{ option.label }}</mat-radio-button>
+              }
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="createContext.formEditable && createContext.gameStage !== 'init'">
+      <div class="section__column">
+        <!-- Rounds -->
+        <div class="new-game-part new-game-part__rounds">
+          <div class="section__title">Rounds</div>
+          <div
+            class="part-data__rounds"
+            cdkDropList
+            (cdkDropListDropped)="roundDrop($event)"
+            [style.minHeight.px]="roundsLimits[0] * 60 + 2"
+            [style.height.px]="roundsFormInfo.value.length * 60 + 2"
+            [style.maxHeight.px]="roundsLimits[roundsLimits.length - 1] * 60 + 2">
+            <ng-container *ngIf="true">
+              @for (round of roundsFormInfo.value; track i; let i = $index, e = $even) {
+                <div cdkDrag class="round-item" [ngClass]="{ even: e }">
+                  <div class="roundQuestion">
+                    <div class="message" [ngClass]="{ chosen: round.questionPremiseId }">
+                      <span class="roundHeader">
+                        <span>Round #{{ i + 1 }}</span>
+                        Question
+                      </span>
+                    </div>
+                    <mat-form-field appearance="outline">
+                      <mat-select
+                        [compareWith]="roundCompareFn"
+                        (selectionChange)="roundSelected($event, round, $index)">
+                        @for (questionsOption of questionsOptions; track questionsOption; let j = $index) {
+                          <mat-option [value]="questionsOption.value">
+                            {{ questionsOption.label }}
+                          </mat-option>
+                        }
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              }
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seats -->
+      <div class="section__column">
+        <div class="new-game-part new-game-part__seats">
+          <div class="section__title seats-title">Seats</div>
+          <div class="part-data__seats">
+            @for (seat of seatsFormInfo.value; track i; let i = $index, e = $even) {
+              <div
+                class="seat"
+                [ngClass]="{
+                  Closed: createContext.gameInSetup && seat.status === 'closed',
+                  Opened: createContext.gameInSetup && seat.status === 'opened-empty',
+                  Invitation: createContext.gameInSetup && seat.status === 'pending-invitation',
+                  Taken: createContext.gameInSetup && seat.status === 'taken',
+                  Host: createContext.gameInSetup && seat.takenInfo?.userId === createContext.hostPlayerId,
+                }">
+                <div
+                  class="username"
+                  [ngClass]="{
+                    empty: !seat.takenInfo?.userName && seat.status !== 'closed',
+                    pending: seat.status === 'pending-invitation' && seat?.invitationInfo,
+                  }"
+                  #tooltip="matTooltip"
+                  [matTooltip]="
+                    seat.status === 'pending-invitation' && (seat.invitationInfo?.userName || '').length > 7
+                      ? seat.invitationInfo?.userName
+                      : ''
+                  "
+                  matTooltipPosition="below">
+                  @if (seat.takenInfo?.userName) {
+                    {{ seat.takenInfo?.userName }}
+                  }
+
+                  @if (seat.status === "pending-invitation" && seat?.invitationInfo) {
+                    <!-- (pending) -->
+                    @if ((seat.invitationInfo?.userName || "").length > 7) {
+                      {{ seat.invitationInfo?.userName | slice: 0 : 7 }}...
+                    } @else {
+                      {{ seat.invitationInfo?.userName }}
+                    }
+                  }
+
+                  @if (!seat.takenInfo?.userName && seat.status !== "closed" && seat.status !== "pending-invitation") {
+                    (empty)
+                  }
+                </div>
+
+                <div class="actions-variant">
+                  <app-dev-comment text="Variant: closed; Actions: open / invite" />
+                  @if (seat.status === "closed" && createContext.userIsHost) {
+                    @if (createContext.gameInSetup) {
+                      <p
+                        class="option"
+                        [ngClass]="{ 'icon-public_on': createContext.userIsHost }"
+                        (click)="createContext.seatsEditable && processSeatAccess(seat.index, 'open')"
+                        #tooltip="matTooltip"
+                        matTooltip="Open this seat"
+                        matTooltipPosition="below"></p>
+
+                      <p
+                        class="option"
+                        [ngClass]="{ 'icon-invites': createContext.userIsHost }"
+                        (click)="createContext.seatsEditable && processSeatInvitation(seat.index)"
+                        #tooltip="matTooltip"
+                        matTooltip="Invite a friend"
+                        matTooltipPosition="below"></p>
+                    }
+                  }
+
+                  <app-dev-comment text="Variant: opened; Actions: close / invite" />
+                  @if (seat.status === "opened-empty") {
+                    @if (createContext.gameInSetup) {
+                      <p
+                        class="option"
+                        [ngClass]="{ 'icon-public_off': createContext.userIsHost }"
+                        (click)="createContext.seatsEditable && processSeatAccess(seat.index, 'close')"
+                        #tooltip="matTooltip"
+                        matTooltip="Close this seat"
+                        matTooltipPosition="below"></p>
+
+                      <p
+                        class="option"
+                        [ngClass]="{ 'icon-invites': createContext.userIsHost }"
+                        (click)="createContext.seatsEditable && processSeatInvitation(seat.index)"
+                        #tooltip="matTooltip"
+                        matTooltip="Invite a friend"
+                        matTooltipPosition="below"></p>
+                    }
+                  }
+
+                  <app-dev-comment text="Variant: invitation; Actions: clear" />
+                  @if (seat.status === "pending-invitation") {
+                    @if (createContext.gameInSetup) {
+                      <p
+                        class="option"
+                        [ngClass]="{ 'icon-cancel_cross': createContext.userIsHost }"
+                        (click)="createContext.seatsEditable && processSeatEmptying(seat.index)"
+                        #tooltip="matTooltip"
+                        matTooltip="Cancel invitation"
+                        matTooltipPosition="below"></p>
+                    }
+                  }
+
+                  <app-dev-comment text="Variant: taken; Actions: kick" />
+                  @if (seat.status === "taken" && seat.takenInfo?.userId !== createContext.hostPlayerId) {
+                    <div class="actions-variant">
+                      @if (createContext.gameInSetup) {
+                        <p
+                          class="option"
+                          [ngClass]="{
+                            'icon-kick':
+                              createContext.userIsHost && seat.takenInfo?.userId !== createContext.currentUserId,
+                          }"
+                          (click)="createContext.seatsEditable && processSeatEmptying(seat.index)"
+                          #tooltip="matTooltip"
+                          [matTooltip]="
+                            seat.takenInfo?.userId !== createContext.currentUserId ? 'Kick this player' : ''
+                          "
+                          matTooltipPosition="below">
+                          {{ seat.takenInfo?.userName }}
+                        </p>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+
+  <app-operation-display [operationDisplay]="operationDisplay()" />
+
+  <div class="section__actions">
+    @if (createContext.gameStage === "init") {
+      <app-basic-button
+        label="Next"
+        [disabled]="gameForm.invalid"
+        (clicked)="games2.moveNewGameToSetup(gameForm.getRawValue())"
+        [colorCode]="'var(--app_blue)'" />
+    }
+
+    @if (createContext.gameStage === "setup") {
+      <app-basic-button
+        label="Play"
+        (clicked)="(undefined)"
+        [disabled]="gameForm.invalid || !roundsFormInfo.valid || !seatsFormInfo.valid"
+        [colorCode]="'var(--app_green)'" />
+    }
+
+    <app-basic-button label="Cancel" (clicked)="(undefined)" [colorCode]="'var(--app_brown)'" />
+  </div>
+</section>

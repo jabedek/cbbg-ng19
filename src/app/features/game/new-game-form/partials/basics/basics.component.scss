@@ -1,0 +1,69 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+@use "src/assets/styles/_icons.scss";
+@use "src/assets/styles/_material.scss";
+
+:host {
+  // width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .basics {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  form {
+    padding-top: 24px;
+    padding-bottom: 8px;
+    padding-inline: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    // min-width: 360px;
+    border-radius: 3px;
+    // height: 300px;
+    background: var(--app_gray);
+    border: 1px solid var(--app_gray_dark);
+  }
+
+  mat-form-field {
+    // gap: 40px;
+    margin: 5px 0 20px 0;
+  }
+
+  mat-radio-group {
+    padding-right: 12px;
+    background: var(--app_gray_light);
+    border-radius: 4px;
+    padding-block: 6px;
+  }
+
+  .length {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+
+    label {
+      // margin-left: 15px;
+      margin-bottom: 2px;
+      width: 150px;
+      font-family: "Signika Negative";
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--mdc-outlined-text-field-label-text-color, var(--mat-sys-on-surface-variant));
+    }
+
+    ::ng-deep .mdc-label {
+      font-size: 11px !important;
+    }
+  }
+}

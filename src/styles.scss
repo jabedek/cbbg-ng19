@@ -1,10 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 @use "src/assets/styles/content.scss";
-@import "tailwindcss";
+@use "@angular/material" as mat;
 @import "src/assets/styles/_reset.scss";
 @import "src/assets/styles/_scrollbar.scss";
-@import "src/assets/styles/_inputs.scss";
 @import "src/assets/styles/_icons.scss";
 
 :root {
@@ -25,22 +24,15 @@
   --app_gray_light: #efefef;
   --app_gray_dark: #ccc;
   --app_gray_darker: #aaa;
-}
-
-@theme {
-  --color-app_yellow: var(--app_yellow);
-  --color-app_yellow_light: var(--app_yellow_light);
-  --color-app_orange: var(--app_orange);
-  --color-app_orange_light: var(--app_orange_light);
-  --color-app_blue: var(--app_blue);
-  --color-app_blue_light: var(--app_blue_light);
-  --color-app_green: var(--app_green);
-  --color-app_green_light: var(--app_green_light);
 
   // Shadows
-  --drop-shadow-logo_text_shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  --drop-shadow-logo_text_shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
   --shadow-barely_visible_divider_shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   --shadow-basic_button_shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+html {
+  overflow-x: hidden !important;
 }
 
 html,
@@ -52,5 +44,18 @@ body {
   font-family: "Signika Negative", "Helvetica Neue", sans-serif;
 }
 
-::ng-deep {
+* {
+  letter-spacing: -0.4px !important;
+}
+
+.hidden,
+::ng-deep .hidden {
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  display: none !important;
+}
+
+app-basic-button + app-basic-button {
+  margin-left: 5px;
 }

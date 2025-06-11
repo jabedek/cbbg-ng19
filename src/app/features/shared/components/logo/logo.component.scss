@@ -1,0 +1,12 @@
+:host {
+  h1 {
+    color: var(--app_yellow);
+    text-shadow: var(--drop-shadow-logo_text_shadow);
+    cursor: pointer;
+    text-align: center;
+    font-family: "Signika Negative";
+    font-size: 45px;
+    font-weight: 600;
+    user-select: none;
+  }
+}

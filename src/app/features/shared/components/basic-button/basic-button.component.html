@@ -1,0 +1,10 @@
+<button
+  class=""
+  [ngClass]="{ disabled: disabled() }"
+  [style.fontSize]="fontSize"
+  [style.borderColor]="borderColor()"
+  [style.background]="colorCode()"
+  (click)="disabled() != true && clicked.emit()"
+  [disabled]="disabled()">
+  {{ label() }}
+</button>

@@ -2,7 +2,6 @@ import { devEnv } from './environment.dev';
 
 const env: Partial<typeof devEnv> = {
   production: false,
-  TAILWIND_MODE: 'build',
   environmentName: 'tests',
   domainUrl: 'https://HOSTING-TESTS.pl',
   auth0: {

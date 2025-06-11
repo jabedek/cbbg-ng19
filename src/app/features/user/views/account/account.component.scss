@@ -1,0 +1,57 @@
+@use "src/assets/styles/content.scss";
+@use "src/assets/styles/_material.scss";
+
+:host {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 15%;
+
+  .card {
+    max-width: 600px;
+  }
+
+  .card__content {
+    height: 600px;
+    overflow-y: hidden;
+    justify-content: flex-start;
+  }
+
+  .section__content {
+    height: 100%;
+  }
+
+  .section__column {
+    width: 288px !important;
+    height: 100% !important;
+  }
+
+  .section__title {
+    margin-top: 6px;
+    height: 22px;
+    text-align: left;
+  }
+
+  .info {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+
+    section {
+      display: flex;
+      flex-direction: column;
+
+      gap: 0;
+      height: 100%;
+      width: 100%;
+
+      font-size: 12px;
+      overflow-y: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.075);
+      border-radius: 3px;
+    }
+  }
+}

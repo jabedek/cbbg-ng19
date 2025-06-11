@@ -1,0 +1,19 @@
+@use "src/assets/styles/content.scss";
+@use "src/assets/styles/_material.scss";
+
+:host {
+  display: flex;
+  justify-content: center;
+  .card {
+    max-width: 600px;
+  }
+
+  .card__content {
+    height: 600px;
+    overflow-y: auto;
+  }
+
+  ::ng-deep app-new-game-form-2 {
+    height: 100%;
+  }
+}

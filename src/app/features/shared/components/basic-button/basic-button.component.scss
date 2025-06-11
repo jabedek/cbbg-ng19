@@ -1,0 +1,54 @@
+@use "src/assets/styles/_mixins.scss" as mix;
+
+:host {
+  outline: none !important;
+  transition: all 200ms;
+  button {
+    text-transform: uppercase;
+    padding: 0.2em 0.7em;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 200ms;
+    box-shadow: var(--shadow-basic_button_shadow);
+    outline: 1px solid rgba(0, 0, 0, 0.1);
+    color: #fff;
+    @include mix.clickable-btn;
+
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.85);
+
+    &.disabled {
+      filter: grayscale(1) brightness(1.35);
+      color: gray;
+      cursor: default;
+    }
+  }
+}
+
+// :host {
+//   outline: none !important;
+//   transition: all 200ms;
+//   button {
+//     text-transform: uppercase;
+//     padding: 0.2em 0.7em;
+//     border: 2px solid #fff;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     letter-spacing: 0.5px;
+//     transition: all 200ms;
+//     box-shadow: var(--shadow-basic_button_shadow);
+//     outline: 1px solid rgba(0, 0, 0, 0.1);
+//     color: #fff;
+//     @include mix.clickable-btn;
+
+//     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.85);
+
+//     &.disabled {
+//       filter: grayscale(1) brightness(1.35);
+//       color: gray;
+//       cursor: default;
+//     }
+//   }
+// }

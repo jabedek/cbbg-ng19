@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{ data.mainTitle }}</h2>
+<mat-dialog-content>
+  <p [style.textAlign]="'center'" [style.fontSize.px]="16">
+    {{ data.mainQuestion || "Are you sure?" }}
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="buttons">
+    <app-basic-button colorCode="var(--app_brown)" [label]="'No'" (click)="handleCancel()" />
+    <app-basic-button colorCode="var(--app_brown)" [label]="'Yes'" [mat-dialog-close]="true" />
+  </div>
+</mat-dialog-actions>

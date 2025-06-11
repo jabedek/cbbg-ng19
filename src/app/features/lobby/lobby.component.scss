@@ -1,0 +1,19 @@
+@use "src/assets/styles/content.scss";
+@use "src/assets/styles/_material.scss";
+
+:host {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  margin-top: 15%;
+
+  .setup {
+    p {
+      // font-size: 1.2rem;
+      // font-weight: 500;
+      margin-bottom: 10px;
+      margin-top: 30px;
+    }
+  }
+}

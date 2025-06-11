@@ -1,0 +1,19 @@
+<header>
+  <app-logo />
+
+  <app-basic-button *ngIf="showPlayButon" [label]="'Play'" (click)="goToLobby()" />
+
+  <div class="navigation">
+    @let user = auth.appAccount;
+    @if (user?.displayName) {
+      <!-- <app-basic-button [colorCode]="'var(--app_blue)'" [label]="'Play'" (click)="router.navigateByUrl('account')" /> -->
+      <app-basic-button
+        [colorCode]="'var(--app_blue)'"
+        [label]="'Account: ' + user?.displayName"
+        (click)="router.navigateByUrl('account')" />
+      <app-basic-button [colorCode]="'var(--app_blue)'" [label]="'Logout'" (click)="logout()" />
+    } @else {
+      <app-basic-button [colorCode]="'var(--app_blue)'" [label]="'Login'" (click)="login()" />
+    }
+  </div>
+</header>
